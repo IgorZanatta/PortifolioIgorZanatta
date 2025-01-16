@@ -3,7 +3,7 @@ import { Box, Button, Container, Grid, TextField, Typography, styled } from "@mu
 const ContactMe = () => {
     const StyledContactMe = styled("div")(({ theme }) => ({
         backgroundColor: theme.palette.background.default,
-        minHeight: "100vh",
+        minHeight: "40vh",
         display: "flex",
         alignItems: "center",
         padding: theme.spacing(4),

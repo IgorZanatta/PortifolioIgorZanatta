@@ -1,11 +1,16 @@
 import {Box, Container, Grid, styled, Typography} from "@mui/material";
 import Avatar from "../../../assets/images/Igor.jpg";
+import Curriculo from "../../../assets/Cv/Curriculo Igor Zanatta Saraiva.pdf";
 import DownloadIcon from '@mui/icons-material/Download';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import StyledButton from "../../../components/StyledButton/StyledButton";
 import { AnimatedBackground } from "../../../components/AnimatedBackground/AnimatedBackground";
 
-const Hero = () => {
+interface HeroProps {
+    scrollToContactMe: () => void;
+  }
+
+const Hero: React.FC<HeroProps> = ({ scrollToContactMe }) => {
     const StyledHero = styled("div")(({ theme }) => ({
         backgroundColor: theme.palette.primary.main,
         height: "100vh",
@@ -46,15 +51,22 @@ const Hero = () => {
                             <Typography color="primary.contrastText" variant="h2" textAlign="center" >Desenvolvedor Back-end</Typography>
                             <Grid container display="flex" justifyContent="center" spacing={3} pt={3}>
                                 <Grid item xs={12} md={4} display="flex" justifyContent="center">
-                                    <StyledButton onClick={() => console.log("Dowload")}>
-                                        <DownloadIcon />
-                                        <Typography>
-                                            Download CV
-                                        </Typography>
-                                    </StyledButton>
+                                <StyledButton
+                                onClick={() => {
+                                    const link = document.createElement('a');
+                                    link.href = Curriculo; // Caminho importado do arquivo PDF
+                                    link.download = 'Igor_Zanatta_Saraiva_CV.pdf'; // Nome personalizado do arquivo para download
+                                    link.click();
+                                }}
+                                >
+                                <DownloadIcon />
+                                <Typography>
+                                    Download CV
+                                </Typography>
+                                </StyledButton>
                                 </Grid>
                                 <Grid item xs={12} md={4} display="flex" justifyContent="center">
-                                    <StyledButton onClick={() => console.log("email")}>
+                                    <StyledButton onClick={scrollToContactMe}>
                                         <MailOutlineIcon />
                                         <Typography>
                                             Contact me
@@ -68,7 +80,7 @@ const Hero = () => {
             </StyledHero>
       </>
     )
-  }
+  };
   
   export default Hero
   

@@ -3,7 +3,7 @@ import { Box, Container, Grid, Typography, styled } from "@mui/material";
 const About = () => {
     const StyledAbout = styled("div")(({ theme }) => ({
         backgroundColor: theme.palette.background.default,
-        minHeight: "60vh",
+        minHeight: "30vh",
         display: "flex",
         alignItems: "center",
         padding: theme.spacing(4, 0),
