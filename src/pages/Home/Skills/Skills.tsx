@@ -23,17 +23,8 @@ const Skills = () => {
         fontSize: "1rem",
     }));
 
-    const skills = [
-        "Java",
-        "Spring Boot",
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "TypeScript",
-        "Docker",
-        "Maven",
-        "SQL",
-    ];
+    const frontEndSkills = ["HTML", "CSS", "JavaScript", "TypeScript", "React"];
+    const backEndSkills = ["Java", "Spring Boot", "SQL", "Docker", "Maven"];
 
     return (
         <StyledSkills>
@@ -41,12 +32,34 @@ const Skills = () => {
                 <Typography variant="h3" textAlign="center" gutterBottom>
                     Habilidades
                 </Typography>
-                <Grid container spacing={3} justifyContent="center">
-                    {skills.map((skill, index) => (
-                        <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                            <SkillBox>{skill}</SkillBox>
+                <Grid container spacing={4} justifyContent="center">
+                    {/* Front-End Skills */}
+                    <Grid item xs={12} md={6}>
+                        <Typography variant="h5" textAlign="center" gutterBottom>
+                            Front-End
+                        </Typography>
+                        <Grid container spacing={3} justifyContent="center">
+                            {frontEndSkills.map((skill, index) => (
+                                <Grid item xs={12} sm={6} key={index}>
+                                    <SkillBox>{skill}</SkillBox>
+                                </Grid>
+                            ))}
                         </Grid>
-                    ))}
+                    </Grid>
+
+                    {/* Back-End Skills */}
+                    <Grid item xs={12} md={6}>
+                        <Typography variant="h5" textAlign="center" gutterBottom>
+                            Back-End
+                        </Typography>
+                        <Grid container spacing={3} justifyContent="center">
+                            {backEndSkills.map((skill, index) => (
+                                <Grid item xs={12} sm={6} key={index}>
+                                    <SkillBox>{skill}</SkillBox>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Container>
         </StyledSkills>

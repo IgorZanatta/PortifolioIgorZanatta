@@ -63,10 +63,10 @@ const ContactMe = () => {
                     <Typography variant="h6">Ou entre em contato diretamente:</Typography>
                     <Typography variant="body1">
                         <a href="mailto:seuemail@example.com" style={{ textDecoration: "none", color: "#1976d2" }}>
-                            seuemail@example.com
+                            zanatta2014@outlook.com
                         </a>
                     </Typography>
-                    <Typography variant="body1">+55 (99) 99999-9999</Typography>
+                    <Typography variant="body1">+55 (67) 99600-5595</Typography>
                 </Box>
             </Container>
         </StyledContactMe>

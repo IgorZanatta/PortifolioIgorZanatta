@@ -19,7 +19,7 @@ const NavBar: React.FC<NavBarProps> = ({ scrollToSection }) => {
 
   const StyledAppBar = styled(AppBar)(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,
-    zIndex: theme.zIndex.drawer + 1, // Garante que o NavBar fique acima de outros elementos
+    zIndex: theme.zIndex.drawer + 1,
   }));
 
   return (
@@ -38,6 +38,12 @@ const NavBar: React.FC<NavBarProps> = ({ scrollToSection }) => {
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
+            PaperProps={{
+              style: {
+                maxHeight: "50vh", // Limite de altura para evitar overflow
+                width: "200px", // Largura do menu
+              },
+            }}
           >
             <MenuItem
               onClick={() => {

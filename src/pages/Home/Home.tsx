@@ -5,6 +5,7 @@ import Projects from "./Projects/Projects";
 import ContactMe from "./ContactMe/ContactMe";
 import Skills from "./Skills/Skills";
 import NavBar from "../../components/NavBar/NavBar";
+import { styled } from "@mui/material";
 
 const Home = () => {
   const heroRef = useRef<HTMLDivElement | null>(null);
@@ -24,27 +25,41 @@ const Home = () => {
 
     const ref = refs[section];
     if (ref && ref.current) {
-      ref.current.scrollIntoView({ behavior: "smooth" });
+      const offset = 64; // Altura do AppBar em pixels
+      const top = ref.current.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: "smooth" });
     }
   };
+
+  const SectionWrapper = styled("div")(({ theme }) => ({
+    width: "100%",
+    padding: theme.spacing(4, 0), // Adiciona espaçamento vertical
+    margin: 0,
+    overflow: "hidden", // Previne quebras visuais
+  }));
+  
+
 
   return (
     <>
       <NavBar scrollToSection={scrollToSection} />
-      <div ref={heroRef}>
+      <div style={{ paddingTop: "22px" }}> {/* Espaçamento para compensar o AppBar fixo */}
+      <SectionWrapper ref={heroRef}>
         <Hero scrollToContactMe={() => scrollToSection("contact")} />
-      </div>
-      <div ref={aboutRef}>
+      </SectionWrapper>
+      <SectionWrapper ref={aboutRef}>
         <About />
-      </div>
-      <div ref={skillsRef}>
+      </SectionWrapper>
+      <SectionWrapper ref={skillsRef}>
         <Skills />
-      </div>
-      <div ref={projectsRef}>
+      </SectionWrapper>
+      <SectionWrapper ref={projectsRef}>
         <Projects />
-      </div>
-      <div ref={contactRef}>
+      </SectionWrapper>
+      <SectionWrapper ref={contactRef}>
         <ContactMe />
+      </SectionWrapper>
+
       </div>
     </>
   );
