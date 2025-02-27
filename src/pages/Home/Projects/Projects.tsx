@@ -23,7 +23,9 @@ const Projects = () => {
   const projects = [
     {
       name: "SafraFacil",
-      description: "O SafraFacil é um sistema para gestão agrícola.",
+      description: "O SafraFacil é um sistema para gestão agrícola.", // Exibido na listagem
+      informativo:
+        " O SafraFacil foi desenvolvido como meu Trabalho de Conclusão de Curso (TCC). Foi planejado e implementado inteiramente por mim, utilizando Java com Spring Boot no backend, banco de dados SQL e React com TypeScript no frontend. O objetivo do sistema é oferecer uma plataforma de fácil usabilidade que permita o registro e gerenciamento de fazendas, suas safras, setores e as atividades realizadas em cada setor, facilitando a organização e o controle das operações agrícolas.",
       url: "https://safrafacil.vercel.app/",
       github: {
         frontend: "https://github.com/IgorZanatta/safrafacil",
@@ -33,7 +35,9 @@ const Projects = () => {
     },
     {
       name: "Jogo: Reversi",
-      description: "O Reversi é um jogo estratégico para desafiar sua lógica.",
+      description: "O Reversi é um jogo estratégico para desafiar sua lógica.", // Exibido na listagem
+      informativo:
+        " O Reversi é um jogo de tabuleiro estratégico para dois jogadores. O objetivo é cercar e capturar as peças do oponente, virando-as para a sua cor. O jogo se encerra quando o tabuleiro está cheio ou não há mais jogadas possíveis, e o vencedor é quem tiver mais peças no tabuleiro. Esse projeto foi parte de um trabalho de Inteligência Artificial (IA), onde o desafio era criar uma IA que utilizasse o algoritmo MiniMax para jogar contra um humano em um jogo preditivo. Escolhi o Reversi por ser um jogo de regras simples e com um número menor de jogadas possíveis em comparação ao xadrez, tornando-o ideal para implementação e análise do algoritmo.",
       url: "https://igorzanatta.github.io/Reversi/",
       github: {
         frontend: "https://github.com/IgorZanatta/Reversi",
@@ -41,6 +45,7 @@ const Projects = () => {
       images: [Image1Jogo, Image2Jogo],
     },
   ];
+  
 
   const handleOpenModal = (project: any) => {
     setSelectedProject(project);

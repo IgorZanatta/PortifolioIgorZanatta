@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Dialog,
   DialogContent,
@@ -6,16 +6,18 @@ import {
   Box,
   Button,
   Grid,
+  useMediaQuery,
+  useTheme
 } from "@mui/material";
 
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-
-
+import { Github } from "lucide-react";
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+import ProximaAuto from "../../../components/ProximaAuto/ProximaAuto"; // Importe o componente
 
 interface ProjectModalProps {
   project: {
     name: string;
+    informativo: string;
     description: string;
     url: string;
     images: string[];
@@ -29,74 +31,31 @@ interface ProjectModalProps {
 }
 
 const ProjectModal: React.FC<ProjectModalProps> = ({ project, open, onClose }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const handleNextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % project.images.length);
-  };
-
-  const handlePrevImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? project.images.length - 1 : prevIndex - 1
-    );
-  };
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md")); // Detecta telas pequenas
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+    <Dialog 
+      open={open} 
+      onClose={onClose} 
+      maxWidth="lg" 
+      fullWidth
+      sx={{
+        "& .MuiDialog-paper": { 
+          maxWidth: "70vw",
+          height: "auto",
+          maxHeight: "90vh",
+          overflowY: "auto",
+          transition: "all 0.3s ease-in-out",
+        }
+      }}
+    >
       <DialogContent>
         <Grid container spacing={4}>
-          {/* Imagem com Botões Sobrepostos */}
+          {/* Componente que exibe e troca as imagens automaticamente */}
           <Grid item xs={12} md={6}>
             <Box position="relative" borderRadius="12px" overflow="hidden">
-            <img
-                src={project.images[currentImageIndex]}
-                alt={project.name}
-                style={{
-                    width: "100%", // Define que a imagem ocupa toda a largura do contêiner
-                    height: "400px", // Ajusta a altura da imagem
-                    objectFit: "cover", // Garante que a imagem seja cortada proporcionalmente
-                    display: "block",
-                    borderRadius: "12px",
-                }}
-            />
-
-              {/* Botões Sobrepostos */}
-              <Button
-                onClick={handlePrevImage}
-                sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "10px",
-                    transform: "translateY(-50%)",
-                    width: "40px", // Largura do botão
-                    height: "40px", // Altura do botão
-                    borderRadius: "50%", // Torna o botão circular
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    color: "#fff",
-                    minWidth: "unset", // Remove o comportamento padrão de largura mínima do Material-UI
-                    "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.7)" },
-                }}
-              >
-                <NavigateBeforeIcon />
-              </Button>
-              <Button
-                onClick={handleNextImage}
-                sx={{
-                    position: "absolute",
-                    top: "50%",
-                    right: "10px",
-                    transform: "translateY(-50%)",
-                    width: "40px", // Largura do botão
-                    height: "40px", // Altura do botão
-                    borderRadius: "50%", // Torna o botão circular
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    color: "#fff",
-                    minWidth: "unset", // Remove o comportamento padrão de largura mínima do Material-UI
-                    "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.7)" },
-                }}
-              >
-                <NavigateNextIcon />
-              </Button>
+              <ProximaAuto images={project.images} /> {/* Agora as imagens trocam automaticamente */}
             </Box>
           </Grid>
 
@@ -111,13 +70,27 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, open, onClose }) =
             justifyContent="center"
             textAlign="center"
           >
-            <Typography variant="h4" gutterBottom>
+            <Typography 
+              variant="h4" 
+              gutterBottom
+              sx={{ fontSize: isSmallScreen ? "1.5rem" : "2rem" }}
+            >
               {project.name}
             </Typography>
-            <Typography variant="body1" gutterBottom>
-              {project.description}
+            {/* Texto Informativo */}
+            <Typography 
+              variant="body1" 
+              gutterBottom
+              sx={{ 
+                fontSize: isSmallScreen ? "0.95rem" : "1.25rem", 
+                lineHeight: "1.6", 
+                textAlign: "justify", 
+                maxWidth: "90%", 
+                color: "#444" 
+              }}
+            >
+              {project.informativo}
             </Typography>
-
             {/* Botão de Visualizar o Projeto */}
             <Button
               variant="contained"
@@ -125,44 +98,44 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, open, onClose }) =
               href={project.url}
               target="_blank"
               rel="noopener"
-              sx={{ mt: 2 }}
-            >
-              Visite o Site
+              sx={{ display: "flex", alignItems: "center", gap: 1 , mt: 2}}
+              >
+              Visite <MeetingRoomIcon/>
             </Button>
 
             {/* Botões de Repositórios do GitHub */}
             <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                gap={2} // Espaçamento entre os botões
-                mt={2} // Margem superior
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              gap={2}
+              mt={2}
+            >
+              {project.github?.frontend && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  target="_blank"
+                  rel="noopener"
+                  sx={{ display: "flex", alignItems: "center", gap: 1 , mt: 2}}
+                  href={project.github.frontend}
                 >
-                {project.github?.frontend && (
-                    <Button
-                    variant="contained"
-                    color="primary"
-                    target="_blank"
-                    rel="noopener"
-                    sx={{ mt: 2 }}
-                    href={project.github.frontend}
-                    >
-                    Front-End
-                    </Button>
-                )}
-                {project.github?.backend && (
-                    <Button
-                    variant="contained"
-                    color="primary"
-                    target="_blank"
-                    rel="noopener"
-                    sx={{ mt: 2 }}
-                    href={project.github.backend}
-                    >
-                    Back-End
-                    </Button>
-                )}
-                </Box>
+                  Front-End <Github size={24} />
+                </Button>
+              )}
+              {project.github?.backend && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  target="_blank"
+                  rel="noopener"
+                  sx={{ display: "flex", alignItems: "center", gap: 1 , mt: 2}}
+                  href={project.github.backend}
+                >
+                  Back-End <Github size={24} />
+                </Button>
+              )}
+            </Box>
           </Grid>
         </Grid>
       </DialogContent>

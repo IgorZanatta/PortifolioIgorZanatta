@@ -5,6 +5,7 @@ import Projects from "./Projects/Projects";
 import ContactMe from "./ContactMe/ContactMe";
 import Skills from "./Skills/Skills";
 import NavBar from "../../components/NavBar/NavBar";
+import SocialSidebar from "../../components/SocialSidebar/SocialSidebar";
 import { styled } from "@mui/material";
 
 const Home = () => {
@@ -43,7 +44,8 @@ const Home = () => {
   return (
     <>
       <NavBar scrollToSection={scrollToSection} />
-      <div style={{ paddingTop: "22px" }}> {/* Espaçamento para compensar o AppBar fixo */}
+      <SocialSidebar /> {/* Adicionando a barra lateral fixa */}
+      
       <SectionWrapper ref={heroRef}>
         <Hero scrollToContactMe={() => scrollToSection("contact")} />
       </SectionWrapper>
@@ -59,8 +61,6 @@ const Home = () => {
       <SectionWrapper ref={contactRef}>
         <ContactMe />
       </SectionWrapper>
-
-      </div>
     </>
   );
 };
