@@ -1,5 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCube, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-cube";
 import { Typography, Box, styled } from "@mui/material";
 
 interface SwiperCubeProps {
