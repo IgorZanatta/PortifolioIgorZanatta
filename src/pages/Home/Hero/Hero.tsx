@@ -13,23 +13,59 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ scrollToContactMe }) => {
     const StyledHero = styled("div")(({ theme }) => ({
       backgroundColor: theme.palette.primary.main,
-      height: "100vh",
+      height: "105vh",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       padding: "0 16px",
-      
+      position: "relative", // Necessário para o efeito abaixo
+    
+      "::after": {
+        content: '""',
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        width: "100%",
+        height: "10px", // Altura do efeito
+        background: "linear-gradient(to bottom, rgba(0,0,0,0), rgba(202, 233, 255, 1))",
+        zIndex: 1,
+      },
     }));
+
+    const StyledImgContainer = styled(Box)({
+      position: "relative",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    });
   
     const StyledImg = styled("img")(({ theme }) => ({
       width: "80%",
       maxWidth: "250px",
       borderRadius: "50%",
-      border: `1px solid ${theme.palette.primary.contrastText}`,
+      position: "relative",
+      zIndex: 2,
       [theme.breakpoints.up("md")]: {
         maxWidth: "350px",
       },
     }));
+  
+    const BlurEffect = styled("div")(({ theme }) => ({
+      position: "absolute",
+      width: "90%",
+      height: "90%",
+      maxWidth: "270px",
+      maxHeight: "270px",
+      borderRadius: "50%",
+      background: theme.palette.primary.contrastText,
+      filter: "blur(20px)",
+      zIndex: 1,
+      [theme.breakpoints.up("md")]: {
+        maxWidth: "370px",
+        maxHeight: "370px",
+      },
+    }));
+  
   
     const StyledTypography = styled(Typography)(({ theme }) => ({
       color: theme.palette.primary.contrastText,
@@ -60,9 +96,10 @@ const Hero: React.FC<HeroProps> = ({ scrollToContactMe }) => {
                 <Box position="absolute" width={"150%"} top={-170} right={0}>
                   <AnimatedBackground />
                 </Box>
-                <Box position="relative" textAlign="center">
-                  <StyledImg src={Avatar} />
-                </Box>
+                <StyledImgContainer>
+                <BlurEffect />
+                <StyledImg src={Avatar} />
+              </StyledImgContainer>
               </Box>
             </Grid>
             <Grid
@@ -94,7 +131,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToContactMe }) => {
                 <Grid item>
                   <StyledButton onClick={scrollToContactMe}>
                     <MailOutlineIcon />
-                    <Typography>Contact me</Typography>
+                    <Typography>Entre em Contato</Typography>
                   </StyledButton>
                 </Grid>
               </StyledButtonWrapper>

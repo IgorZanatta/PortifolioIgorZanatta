@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useAnimationFrame } from "framer-motion";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme, styled } from "@mui/material"; // ✅ Importando styled corretamente
 import { useState, useRef } from "react";
 
 interface Skill {
@@ -15,14 +15,15 @@ interface SkillsCarouselProps {
 
 const SkillsCarousel: React.FC<SkillsCarouselProps> = ({ skills, title, speedMultiplier = 1 }) => {
   const theme = useTheme();
-  const duplicatedSkills = [...skills, ...skills, ...skills]; // Apenas duplicamos para criar um loop melhor
+  const duplicatedSkills = [...skills, ...skills, ...skills]; // Duplicamos para criar um loop contínuo
   const itemWidth = 150 + 16; // Largura do item + margem
-  const totalWidth = itemWidth * skills.length; // Usamos apenas a quantidade original de skills para referência
+  const totalWidth = itemWidth * skills.length; // Consideramos apenas a lista original para calcular o loop
 
   const [isPaused, setIsPaused] = useState(false);
   const x = useMotionValue(0);
   const lastTime = useRef<number | null>(null);
 
+  // Animação automática
   useAnimationFrame((time) => {
     if (!isPaused) {
       if (lastTime.current !== null) {
@@ -33,6 +34,13 @@ const SkillsCarousel: React.FC<SkillsCarouselProps> = ({ skills, title, speedMul
     }
     lastTime.current = time;
   });
+
+  const StyledCarouselTitle = styled(Typography)(() => ({
+    fontWeight: 600, // Menos espesso que o título Habilidades (700)
+    letterSpacing: "0.5px", // Ajuste sutil no espaçamento para melhor leitura
+    color: theme.palette.primary.main, // Mantém a cor do tema para uniformidade
+  }));
+  
 
   return (
     <Box
@@ -46,9 +54,10 @@ const SkillsCarousel: React.FC<SkillsCarouselProps> = ({ skills, title, speedMul
         position: "relative",
       }}
     >
-      <Typography variant="h4" gutterBottom>
+      <StyledCarouselTitle variant="h4" gutterBottom>
         {title}
-      </Typography>
+      </StyledCarouselTitle>
+
 
       <Box
         sx={{
@@ -60,6 +69,7 @@ const SkillsCarousel: React.FC<SkillsCarouselProps> = ({ skills, title, speedMul
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
+        {/* Gradientes laterais */}
         <Box
           sx={{
             position: "absolute",
@@ -67,7 +77,7 @@ const SkillsCarousel: React.FC<SkillsCarouselProps> = ({ skills, title, speedMul
             left: 0,
             width: "100px",
             height: "100%",
-            background: `linear-gradient(to right, ${theme.palette.background.default} 0%, transparent 100%)`,
+            background: `linear-gradient(to right, ${theme.palette.secondary.main} 0%, transparent 100%)`,
             zIndex: 2,
           }}
         />
@@ -78,17 +88,22 @@ const SkillsCarousel: React.FC<SkillsCarouselProps> = ({ skills, title, speedMul
             right: 0,
             width: "100px",
             height: "100%",
-            background: `linear-gradient(to left, ${theme.palette.background.default} 0%, transparent 100%)`,
+            background: `linear-gradient(to left, ${theme.palette.secondary.main} 0%, transparent 100%)`,
             zIndex: 2,
           }}
         />
 
+        {/* Carrossel com arraste manual */}
         <motion.div
           style={{
             display: "flex",
             whiteSpace: "nowrap",
             x,
           }}
+          drag="x"
+          dragConstraints={{ left: -totalWidth, right: 0 }} // Limite de arraste
+          onDragStart={() => setIsPaused(true)} // Pausa animação ao arrastar
+          onDragEnd={() => setIsPaused(false)} // Retoma animação ao soltar
         >
           {duplicatedSkills.map((skill, index) => (
             <Box
@@ -102,8 +117,8 @@ const SkillsCarousel: React.FC<SkillsCarouselProps> = ({ skills, title, speedMul
                 borderRadius: 2,
                 textAlign: "center",
                 fontWeight: "bold",
-                boxShadow: theme.shadows[4],
-                cursor: "pointer",
+                boxShadow: `0px 4px 10px rgba(202, 233, 255, 0.6)`,
+                cursor: "grab",
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>

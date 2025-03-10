@@ -3,15 +3,15 @@ import { createTheme, responsiveFontSizes } from "@mui/material";
 let theme = createTheme({
     palette: {
         primary: {
-            main: '#232323',
+            main: '#1b4965',
         },
         secondary: {
-            main: '#4f8e3e',
+            main: '#cae9ff',
         },
     },
     typography: {
         fontFamily: [
-            '"Helvetica Neue"',
+            '"Arial"',
             // '-apple-system',
             // 'BlinkMacSystemFont',
             // '"Segoe UI"',

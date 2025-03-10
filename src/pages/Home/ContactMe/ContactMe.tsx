@@ -4,12 +4,42 @@ import EmailIcon from '@mui/icons-material/Email';
 
 const ContactMe = () => {
     const StyledContactMe = styled("div")(({ theme }) => ({
-        backgroundColor: theme.palette.background.default,
-        minHeight: "40vh",
+        backgroundColor: theme.palette.secondary.main,
+        minHeight: "60vh",
         display: "flex",
         alignItems: "center",
         padding: theme.spacing(4),
+        position: "relative", // Garante que o pseudo-elemento seja posicionado corretamente
+      
+        // Efeito de gradiente superior para suavizar a transição da página anterior
+        "::before": {
+          content: '""',
+          position: "absolute",
+          width: "100%",
+          height: "10px", // Aumentei um pouco para suavizar melhor o efeito
+          zIndex: 1,
+          top: -1,
+          left: 0,
+          background: "linear-gradient(to bottom, rgba(27, 73, 101, 1), rgba(27, 73, 101, 0))",
+        }
     }));
+    
+    const StyledTitle = styled(Typography)(({ theme }) => ({
+        color: theme.palette.primary.main, // Mesmo estilo do Skills
+        fontWeight: 650, // Linhas mais grossas para o título principal
+        fontSize: "2rem",
+        letterSpacing: "1px",
+        textShadow: "1px 1px 2px rgba(0,0,0,0.1)", // Leve contorno para melhor definição
+        [theme.breakpoints.up("md")]: {
+          fontSize: "3rem",
+        },
+    }));
+      
+    const StyledText = styled(Typography)(({ theme }) => ({
+        color: theme.palette.primary.main, // Cor igual à usada em Skills
+        fontSize: "1.1rem",
+    }));
+      
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -37,15 +67,14 @@ const ContactMe = () => {
     return (
         <StyledContactMe>
             <Container maxWidth="md">
-                <Typography variant="h3" textAlign="center" gutterBottom>
-                    Entre em Contato
-                </Typography>
-                <Typography variant="body1" textAlign="center"  sx={{ 
-                fontSize: "1.1rem" 
-                
-              }} pb={4}>
-                    Envie uma mensagem ou entre em contato diretamente por e-mail ou celular.
-                </Typography>
+            <StyledTitle variant="h3" textAlign="center" gutterBottom>
+                Entre em Contato
+            </StyledTitle>
+
+            <StyledText variant="body1" textAlign="center" pb={4}>
+                Envie uma mensagem ou entre em contato diretamente por e-mail ou celular.
+            </StyledText>
+
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>

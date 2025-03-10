@@ -32,9 +32,10 @@ const Home = () => {
     }
   };
 
-  const SectionWrapper = styled("div")(({ theme }) => ({
+  
+  const SectionWrapper = styled("div")(({  }) => ({
     width: "100%",
-    padding: theme.spacing(4, 0), // Adiciona espaçamento vertical
+    padding: 0, // Remove qualquer espaçamento extra entre as seções
     margin: 0,
     overflow: "hidden", // Previne quebras visuais
   }));
