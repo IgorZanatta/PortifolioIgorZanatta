@@ -11,7 +11,7 @@ import MouseParticles from "../../../components/AnimacaoMouse/MouseParticles";
 
 const StyledProjects = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
-  height: "100vh",
+  minHeight: "100vh", // Alterado de height para minHeight para evitar cortes
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -19,7 +19,7 @@ const StyledProjects = styled("div")(({ theme }) => ({
   position: "relative",
   overflow: "hidden",
   pointerEvents: "auto",
-  marginTop: "-1px", // Força o encaixe correto sem espaços extras
+  marginTop: "-1px", // Ajuste fino para evitar espaços extras
 
   "::before": {
     content: '""',
@@ -29,7 +29,12 @@ const StyledProjects = styled("div")(({ theme }) => ({
     zIndex: 1,
     top: 0,
     background: "linear-gradient(to bottom, rgba(202, 233, 255, 1), rgba(27, 73, 101, 0))",
-  }
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    padding: theme.spacing(2), // Reduz o padding para telas pequenas
+    alignItems: "flex-start", // Evita que o título seja cortado
+  },
 }));
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
