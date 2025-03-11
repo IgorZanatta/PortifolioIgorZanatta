@@ -9,13 +9,15 @@ import SocialSidebar from "../../components/SocialSidebar/SocialSidebar";
 import { styled } from "@mui/material";
 
 const Home = () => {
-  const heroRef = useRef<HTMLDivElement | null>(null);
-  const aboutRef = useRef<HTMLDivElement | null>(null);
-  const skillsRef = useRef<HTMLDivElement | null>(null);
-  const projectsRef = useRef<HTMLDivElement | null>(null);
-  const contactRef = useRef<HTMLDivElement | null>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const skillsRef = useRef<HTMLDivElement>(null);
+  const projectsRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
 
   const scrollToSection = (section: string) => {
+    console.log(`Tentando rolar para a seção: ${section}`); // Teste no console
+  
     const refs: { [key: string]: React.RefObject<HTMLDivElement> } = {
       hero: heroRef,
       about: aboutRef,
@@ -23,30 +25,33 @@ const Home = () => {
       projects: projectsRef,
       contact: contactRef,
     };
-
+  
     const ref = refs[section];
-    if (ref && ref.current) {
-      const offset = 64; // Altura do AppBar em pixels
-      const top = ref.current.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: "smooth" });
-    }
+  
+    if (ref?.current) {  
+      // NOVO MÉTODO: scrollIntoView
+      ref.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    } 
   };
-
   
-  const SectionWrapper = styled("div")(({  }) => ({
+  
+
+  const SectionWrapper = styled("div")({
     width: "100%",
-    padding: 0, // Remove qualquer espaçamento extra entre as seções
+    padding: 0,
     margin: 0,
-    overflow: "hidden", // Previne quebras visuais
-  }));
-  
-
+    overflow: "hidden",
+    scrollBehavior: "smooth", // Adiciona um scroll suave global
+  });
 
   return (
     <>
       <NavBar scrollToSection={scrollToSection} />
-      <SocialSidebar /> {/* Adicionando a barra lateral fixa */}
-      
+      <SocialSidebar />
+
       <SectionWrapper ref={heroRef}>
         <Hero scrollToContactMe={() => scrollToSection("contact")} />
       </SectionWrapper>

@@ -18,6 +18,11 @@ const NavBar: React.FC<NavBarProps> = ({ scrollToSection }) => {
     setAnchorEl(null);
   };
 
+  const handleClick = (section: string) => {
+    scrollToSection(section);
+    handleMenuClose();
+  };
+
   const StyledAppBar = styled(AppBar)(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,
     zIndex: theme.zIndex.drawer + 1,
@@ -49,28 +54,25 @@ const NavBar: React.FC<NavBarProps> = ({ scrollToSection }) => {
               onClose={handleMenuClose}
               PaperProps={{
                 style: {
-                  maxHeight: "70vh", // Aumentando a altura do menu para melhor exibição
-                  width: "240px", // Largura um pouco maior para destaque
-                  textAlign: "center", // Centraliza os textos no menu
-                  borderRadius: "12px", // Bordas arredondadas para um design mais limpo
-                  boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.3)", // Efeito de sombra elegante
-                  background: "rgba(0, 0, 0, 0.8)", // Menu com um leve fundo escuro translúcido
-                  backdropFilter: "blur(5px)", // Efeito de desfoque no fundo
-                  color: "white", // Cor do texto branca para contraste
+                  maxHeight: "70vh",
+                  width: "240px",
+                  textAlign: "center",
+                  borderRadius: "12px",
+                  boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.3)",
+                  background: "rgba(0, 0, 0, 0.8)",
+                  backdropFilter: "blur(5px)",
+                  color: "white",
                 },
               }}
             >
               {menuItems.map((item, index) => (
                 <div key={item.section}>
                   <MenuItem
-                    onClick={() => {
-                      scrollToSection(item.section);
-                      handleMenuClose();
-                    }}
+                    onClick={() => handleClick(item.section)}
                     sx={{
-                      justifyContent: "center", // Centraliza os textos dentro do menu
-                      fontSize: "1.2rem", // Tamanho um pouco maior do texto
-                      "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.2)" }, // Leve efeito ao passar o mouse
+                      justifyContent: "center",
+                      fontSize: "1.2rem",
+                      "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.2)" },
                     }}
                   >
                     {item.label}
@@ -78,8 +80,8 @@ const NavBar: React.FC<NavBarProps> = ({ scrollToSection }) => {
                   {index !== menuItems.length - 1 && (
                     <Divider
                       sx={{
-                        backgroundColor: "rgba(255, 255, 255, 0.2)", // Risco discreto abaixo de cada item
-                        marginX: "20px", // Mantém as bordas suaves
+                        backgroundColor: "rgba(255, 255, 255, 0.2)",
+                        marginX: "20px",
                       }}
                     />
                   )}
@@ -94,7 +96,7 @@ const NavBar: React.FC<NavBarProps> = ({ scrollToSection }) => {
                 <Typography
                   key={item.section}
                   variant="h6"
-                  onClick={() => scrollToSection(item.section)}
+                  onClick={() => handleClick(item.section)}
                   sx={{ cursor: "pointer", color: "white", "&:hover": { opacity: 0.7 } }}
                 >
                   {item.label}

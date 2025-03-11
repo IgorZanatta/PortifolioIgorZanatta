@@ -10,6 +10,8 @@ const GlobalStyles = createGlobalStyle`
     width: 100%;
     height: 100%;
     padding-top: 64px; /* Adiciona espaço abaixo do NavBar */
+    scroll-behavior: smooth !important;
+
   }
 
   /* Scrollbar translúcida */
