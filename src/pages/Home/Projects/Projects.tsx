@@ -4,7 +4,7 @@ import ProjectCard from "./ProjectCard";
 import ProjectModal from "./ProjectModal";
 import Image1Jogo from "../../../assets/imageJogo/Jogo2.jpg";
 import Image2Jogo from "../../../assets/imageJogo/fotoJogo.jpg";
-import Image1SafraFacil from "../../../assets/imageSafraFacil/Sem título.jpg";
+import Image1SafraFacil from "../../../assets/ImageSafraFacil/Semtitulo.jpg";
 import Image2SafraFacil from "../../../assets/imageSafraFacil/foto2.jpg";
 import Image3SafraFacil from "../../../assets/imageSafraFacil/foto3.jpg";
 import MouseParticles from "../../../components/AnimacaoMouse/MouseParticles";
