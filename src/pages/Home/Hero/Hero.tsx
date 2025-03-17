@@ -113,7 +113,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToContactMe }) => {
               textAlign="center" // Centraliza o texto horizontalmente
             >
               <StyledTypography variant="h1">Igor Zanatta Saraiva</StyledTypography>
-              <StyledTypography variant="h2">Desenvolvedor Back-end</StyledTypography>
+              <StyledTypography variant="h2">Desenvolvedor Full Stack</StyledTypography>
               <StyledButtonWrapper container spacing={3}>
                 <Grid item>
                   <StyledButton
