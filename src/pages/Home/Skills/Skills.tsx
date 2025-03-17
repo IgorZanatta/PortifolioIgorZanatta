@@ -58,10 +58,10 @@ const Skills = () => {
                 <Grid container spacing={4} justifyContent="center">
                     {/* Adicionando marginTop no primeiro carrossel para mais espaço */}
                     <Box sx={{ width: "100%", marginTop: 4 }}>
-                        <SkillsCarousel skills={backEndSkills} title="Back-End" />
+                        <SkillsCarousel skills={backEndSkills} title="Back-end" />
                     </Box>
 
-                    <SkillsCarousel skills={frontEndSkills} title="Front-End" />
+                    <SkillsCarousel skills={frontEndSkills} title="Front-end" />
                 </Grid>
             </Container>
         </StyledSkills>
